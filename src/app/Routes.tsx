@@ -1,7 +1,6 @@
 import * as React from "react";
 import {
   BrowserRouter as Router,
-  Redirect,
   Switch,
   Route,
 } from "react-router-dom";
@@ -9,6 +8,7 @@ import {
 // import BasePage from "./BasePage";
 // import { Logout, AuthPage } from "./modules/Auth";
 // import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
+import AccountsPage from "./modules/Accounts/accountsPage";
 import Dashboard from "./modules/BasePage/basePage";
 
 export function Routes() {
@@ -31,6 +31,7 @@ export function Routes() {
         {/* <Redirect from="/auth" to="/" />
       )} */}
 
+        <Route path="/accounts" component={AccountsPage} />
         {/* <Route path="/error" component={ErrorsPage} />
       <Route path="/logout" component={Logout} /> */}
         <Dashboard />
