@@ -1,24 +1,21 @@
 import * as React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-// import { shallowEqual, useSelector } from "react-redux";
-// import BasePage from "./BasePage";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { shallowEqual, useSelector } from "react-redux";
 // import { Logout, AuthPage } from "./modules/Auth";
 // import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
 import AccountsPage from "./modules/Accounts/accountsPage";
 import Dashboard from "./modules/BasePage/basePage";
+import AuthBase from "./modules/Auth/AuthBase";
 
 export function Routes() {
-  // const { isAuthorized } = useSelector(
-  //   ({ auth }) => ({
-  //     isAuthorized: auth.user != null,
-  //   }),
-  //   shallowEqual
-  // );
+  const { isAuthorized } = useSelector<any, any>(
+    ({ auth }) => ({
+      isAuthorized: auth.user != null,
+    }),
+    shallowEqual
+  );
 
+  console.log("isAuthorized", isAuthorized);
   return (
     <Router>
       <Switch>
@@ -32,9 +29,11 @@ export function Routes() {
       )} */}
 
         <Route path="/accounts" component={AccountsPage} />
+        <Route path="/SignIn" component={AuthBase} />
+        <Route path="/SignUp" component={AuthBase} />
         {/* <Route path="/error" component={ErrorsPage} />
       <Route path="/logout" component={Logout} /> */}
-        <Dashboard />
+        {!isAuthorized ? <AuthBase /> : <Dashboard />}
         {/* {!isAuthorized ? (
         <Redirect to="/auth/login" />
       ) : (
