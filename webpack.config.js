@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const DEFAULT_PORT = !process.env.PORT ? 8080 : process.env.PORT;
 
 module.exports = {
-  entry: "./src/app/index.tsx",
+  entry: "./src/index.tsx",
   target: "web",
   mode: "development",
   output: {

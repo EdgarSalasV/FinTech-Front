@@ -24,7 +24,8 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import * as Utils from "../../../../utils";
-
+import axios from "axios";
+import { iLogin } from "../types";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -112,24 +113,28 @@ export function LoginForm() {
     event.preventDefault();
   };
 
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const onSubmit = async (values: iLogin) => {
+    let { email, password } = values;
+    let request: any = ({
+      email,
+      password,
+    });
+    try {
+      console.log(request);
+      // ${process.env.REACT_APP_API_BASE}/api/v1/users/login/
+      // let resp = await
 
-    // ${process.env.REACT_APP_API_BASE}/api/v1/users/login/
-    fetch("http://localhost:8000/api/v1/users/login/", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      // mode: 'cors',
-      body: JSON.stringify({ email: values.email, password: values.password }),
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      axios
+        .post("http://127.0.0.1:3001/login", request, {
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            Connection: "perro",
+          },
+        })
+        .then((resp) => console.log("resp", resp));
+    } catch (error) {
+      console.log("error LOGIN", error);
+    }
   };
 
   return (

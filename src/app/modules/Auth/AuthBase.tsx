@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuthBase: React.FC<{}> = () => {
+export const AuthBase: React.FC<{}> = () => {
   const classes = useStyles();
   const pathName:string = window.location.pathname;
   console.log('pathName', pathName)
@@ -54,5 +54,3 @@ const AuthBase: React.FC<{}> = () => {
     </Grid>
   );
 };
-
-export default AuthBase;
