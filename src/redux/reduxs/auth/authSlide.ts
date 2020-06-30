@@ -1,7 +1,7 @@
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { put, takeLatest } from "redux-saga/effects";
-import { iAuth } from "./types/authTypes";
+import { iAuth, iActions } from "./types/authTypes";
 
 export const actionTypes = {
   Login: "[Login] Action",
@@ -17,7 +17,7 @@ const initialAuthState: iAuth = {
   created_at: undefined,
   updated_at: undefined,
   jti: undefined,
-  isAuthorized: undefined
+  isAuthorized: undefined,
 };
 
 export const reducer = persistReducer(
@@ -72,7 +72,9 @@ export const reducer = persistReducer(
   }
 );
 
-export const actions: any = {
+export const actions
+: iActions
+= {
   login: (
     id: string,
     email: string,

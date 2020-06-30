@@ -1,7 +1,7 @@
 import axios from "axios";
 var API_URL = "http://localhost:3001";
 
-export const LOGIN_URL = API_URL + "/api/v1/auth/sign_in";
+export const LOGIN_URL = API_URL + "/login";
 export const REGISTER_URL = API_URL + "/api/v1/auth";
 export const REQUEST_PASSWORD_URL = API_URL + "/api/v1/auth/password";
 export const SUBMIT_PASSWORD_URL = API_URL + "/api/v1/auth/password";
@@ -9,7 +9,7 @@ export const SUBMIT_PASSWORD_URL = API_URL + "/api/v1/auth/password";
 export const ME_URL = "api/me";
 
 export function login(email: string, password: string) {
-  return axios.post(LOGIN_URL, { user: { email: email, password: password } });
+  return axios.post(LOGIN_URL, { email: email, password: password });
 }
 
 export function register(

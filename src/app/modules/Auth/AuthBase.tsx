@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { LoginForm } from "./pages/LoginForm";
+import LoginForm from "./pages/LoginForm";
 import { SignUpForm } from "./pages/SignUpForm";
 import { iLogin, iLoginProps } from "./types";
 

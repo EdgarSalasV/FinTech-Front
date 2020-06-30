@@ -19,7 +19,10 @@ const fistLetterUpperLower = (word: string, isUpper: boolean) =>
     ? word.charAt(0).toUpperCase() + word.slice(1)
     : word.charAt(0).toLowerCase() + word.slice(1);
 
+const toAbsoluteUrl = (pathname: string) => process.env.PUBLIC_URL + pathname;
+
 export {
   // sortCustom,
   fistLetterUpperLower,
+  toAbsoluteUrl,
 };

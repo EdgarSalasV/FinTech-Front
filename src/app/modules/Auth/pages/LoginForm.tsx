@@ -26,6 +26,11 @@ import * as yup from "yup";
 import * as Utils from "../../../../utils";
 import axios from "axios";
 import { iLogin } from "../types";
+import { connect } from "react-redux";
+import { login } from "../../../../redux/reduxs/auth/authCrud";
+import * as auth from "../../../../redux/reduxs/auth/authSlide";
+import { iAuth, iActions } from "../../../../redux/reduxs/auth/types/authTypes";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -81,8 +86,11 @@ const Copyright = () => {
   );
 };
 
-export function LoginForm() {
+function LoginForm(props: iActions) {
+  console.log('props', props)
   const classes = useStyles();
+
+  const [loading, setLoading] = React.useState(false);
   const [values, setValues] = React.useState<iForm>({
     password: "",
     showPassword: false,
@@ -96,6 +104,14 @@ export function LoginForm() {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: loginSchema,
   });
+
+  const enableLoading = () => {
+    setLoading(true);
+  };
+
+  const disableLoading = () => {
+    setLoading(false);
+  };
 
   const handleChange = (prop: keyof iForm) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -115,23 +131,18 @@ export function LoginForm() {
 
   const onSubmit = async (values: iLogin) => {
     let { email, password } = values;
-    let request: any = ({
-      email,
-      password,
-    });
     try {
-      console.log(request);
       // ${process.env.REACT_APP_API_BASE}/api/v1/users/login/
       // let resp = await
-
-      axios
-        .post("http://127.0.0.1:3001/login", request, {
-          headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-            Connection: "perro",
-          },
-        })
-        .then((resp) => console.log("resp", resp));
+      localStorage.removeItem("forgot_pwd_notif");
+      enableLoading();
+      login(email, password)
+      .then((resp: {data: iAuth}) => {
+        disableLoading();
+        const { id, email, created_at, updated_at, jti } = resp.data;
+        console.log('resp.data', resp.data)
+        props.login(id, email, created_at, updated_at, jti);
+      });
     } catch (error) {
       console.log("error LOGIN", error);
     }
@@ -255,3 +266,6 @@ export function LoginForm() {
     // </div>
   );
 }
+
+// export default connect(null, auth.actions)(LoginForm);
+export default connect(null, auth.actions)(LoginForm);
