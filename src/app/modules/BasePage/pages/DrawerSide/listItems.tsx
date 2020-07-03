@@ -71,3 +71,21 @@ export const secondaryListItems = (
     </ListItem>
   </div>
 );
+
+export const loginListItems = (
+  <div>
+    <ListSubheader inset>Sign Out</ListSubheader>
+    <ListItem button>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Sign Out" />
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <AssignmentIcon />
+      </ListItemIcon>
+      <ListItemText primary="Sign In" />
+    </ListItem>
+  </div>
+);

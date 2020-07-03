@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: "center",
     },
     margin: {
-      margin: theme.spacing(1),
+      marginTop: theme.spacing(1),
     },
     form: {
       // width: "100%", // Fix IE 11 issue.
@@ -226,6 +226,31 @@ export function SignUpForm() {
               {Utils.fistLetterUpperLower(errors.password.message, true)}
             </FormHelperText>
           )}
+        </FormControl>
+
+        <FormControl
+          className={clsx(classes.margin)}
+          variant="outlined"
+          fullWidth
+        >
+          <TextField
+            name="confirmPassword"
+            inputRef={register}
+            label="Confirm Password"
+            // className={clsx(classes.margin, classes.textField)}
+            // margin="2"
+            variant="outlined"
+            // fullWidth
+            error={errors.confirmPassword ? true : false}
+            helperText={
+              errors.confirmPassword
+                ? Utils.fistLetterUpperLower(
+                    errors.confirmPassword.message,
+                    true
+                  )
+                : ""
+            }
+          />
         </FormControl>
 
         <FormControlLabel

@@ -1,7 +1,7 @@
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { put, takeLatest } from "redux-saga/effects";
-import { iAuth } from "./types/authTypes";
+import { iAuth, iActions } from "./types/authTypes";
 
 export const actionTypes = {
   Login: "[Login] Action",
@@ -17,7 +17,7 @@ const initialAuthState: iAuth = {
   created_at: undefined,
   updated_at: undefined,
   jti: undefined,
-  isAuthorized: undefined
+  isAuthorized: undefined,
 };
 
 export const reducer = persistReducer(
@@ -35,18 +35,14 @@ export const reducer = persistReducer(
   ) => {
     switch (action.type) {
       case actionTypes.Login: {
-        let authToken = action.payload.authToken;
-        let uid = action.payload.uid;
-        let client = action.payload.client;
-        let expiry = action.payload.expiry;
-        let token = action.payload.token;
+        let id = action.payload.id;
+        let email = action.payload.email;
+        let created_at = action.payload.created_at;
+        let updated_at = action.payload.updated_at;
+        let jti = action.payload.jti;
 
         return {
-          authToken,
-          user: { email: uid, fullname: uid },
-          client,
-          expiry,
-          token,
+          user: { id, email, created_at, updated_at, jti },
         };
       }
 
@@ -72,7 +68,7 @@ export const reducer = persistReducer(
   }
 );
 
-export const actions: any = {
+export const actions: iActions = {
   login: (
     id: string,
     email: string,

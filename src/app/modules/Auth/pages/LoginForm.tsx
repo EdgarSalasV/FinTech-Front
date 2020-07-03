@@ -24,6 +24,12 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import * as Utils from "../../../../utils";
+import axios from "axios";
+import { iLogin } from "../types";
+import { connect } from "react-redux";
+import { login } from "../../../../redux/reduxs/auth/authCrud";
+import * as auth from "../../../../redux/reduxs/auth/authSlide";
+import { iAuth, iActions } from "../../../../redux/reduxs/auth/types/authTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,8 +86,11 @@ const Copyright = () => {
   );
 };
 
-export function LoginForm() {
+function LoginForm(props: iActions) {
+  console.log('props', props)
   const classes = useStyles();
+
+  const [loading, setLoading] = React.useState(false);
   const [values, setValues] = React.useState<iForm>({
     password: "",
     showPassword: false,
@@ -95,6 +104,14 @@ export function LoginForm() {
   const { register, handleSubmit, errors } = useForm({
     validationSchema: loginSchema,
   });
+
+  const enableLoading = () => {
+    setLoading(true);
+  };
+
+  const disableLoading = () => {
+    setLoading(false);
+  };
 
   const handleChange = (prop: keyof iForm) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -112,24 +129,22 @@ export function LoginForm() {
     event.preventDefault();
   };
 
-  const onSubmit = (values: any) => {
-    console.log(values);
-
-    // ${process.env.REACT_APP_API_BASE}/api/v1/users/login/
-    fetch("http://localhost:8000/api/v1/users/login/", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      // mode: 'cors',
-      body: JSON.stringify({ email: values.email, password: values.password }),
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
+  const onSubmit = async (values: iLogin) => {
+    let { email, password } = values;
+    try {
+      // ${process.env.REACT_APP_API_BASE}/api/v1/users/login/
+      // let resp = await
+      localStorage.removeItem("forgot_pwd_notif");
+      enableLoading();
+      login(email, password)
+      .then((resp: {data: iAuth}) => {
+        const { id, email, created_at, updated_at, jti } = resp.data;
+        props.login(id, email, created_at, updated_at, jti);
+        disableLoading();
       });
+    } catch (error) {
+      console.log("error LOGIN", error);
+    }
   };
 
   return (
@@ -250,3 +265,6 @@ export function LoginForm() {
     // </div>
   );
 }
+
+// export default connect(null, auth.actions)(LoginForm);
+export default connect(null, auth.actions)(LoginForm);

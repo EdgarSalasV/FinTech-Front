@@ -1,11 +1,69 @@
 export interface iAuth {
-  id: number;
+  id: string;
   email: string;
   created_at: string;
   updated_at: string;
   jti: string;
-  isAuthorized: boolean;
+  isAuthorized?: boolean;
 }
+
+export type iActionLogin = (
+  id: string,
+  email: string,
+  created_at: string,
+  updated_at: string,
+  jti: string
+) => {
+  type: string;
+  payload: {
+    id: string;
+    email: string;
+    created_at: string;
+    updated_at: string;
+    jti: string;
+  };
+};
+
+type iActionRegister = (
+  jti: string
+) => {
+  type: string;
+  payload: any
+};
+
+type iActionLogout = () => {
+  type: string;
+};
+
+type iActionRequestUser = (
+  id?: string,
+  email?: string,
+  created_at?: string,
+  updated_at?: string,
+  jti?: string
+) => {
+  type: string;
+  payload: any
+};
+
+type iActionFulFillUser = (
+  id: string,
+  email: string,
+  created_at: string,
+  updated_at: string,
+  jti: string
+) => {
+  type: string;
+  payload: any;
+};
+
+export type iActions = {
+  login: iActionLogin;
+  register: iActionRegister;
+  logout: iActionLogout;
+  requestUser: iActionRequestUser;
+  fulfillUser: iActionFulFillUser;
+};
 
 export type SliceState = {
   listLoading: boolean;
@@ -21,4 +79,4 @@ export type SliceState = {
 type iAction = {
   payload: any;
   type: string;
-}
+};

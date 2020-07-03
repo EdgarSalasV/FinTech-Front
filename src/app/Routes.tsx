@@ -1,13 +1,13 @@
 import * as React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
 // import { Logout, AuthPage } from "./modules/Auth";
 // import ErrorsPage from "./modules/ErrorsExamples/ErrorsPage";
 import AccountsPage from "./modules/Accounts/accountsPage";
-import Dashboard from "./modules/BasePage/basePage";
-import AuthBase from "./modules/Auth/AuthBase";
+import { Dashboard } from "./modules/BasePage/basePage";
+import { AuthBase } from "./modules/Auth/AuthBase";
 
-export function Routes() {
+export const Routes = () => {
   const { isAuthorized } = useSelector<any, any>(
     ({ auth }) => ({
       isAuthorized: auth.user != null,
@@ -17,7 +17,7 @@ export function Routes() {
 
   console.log("isAuthorized", isAuthorized);
   return (
-    <Router>
+    <React.Fragment>
       <Switch>
         {/* {!isAuthorized ? ( 
         /*Render auth page when user at `/auth` and not authorized.*/}
@@ -42,6 +42,6 @@ export function Routes() {
         </div>
       )} */}
       </Switch>
-    </Router>
+    </React.Fragment>
   );
-}
+};

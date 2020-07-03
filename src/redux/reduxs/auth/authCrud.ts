@@ -1,7 +1,7 @@
 import axios from "axios";
 var API_URL = "http://localhost:3001";
 
-export const LOGIN_URL = API_URL + "/api/v1/auth/sign_in";
+export const LOGIN_URL = API_URL + "/login";
 export const REGISTER_URL = API_URL + "/api/v1/auth";
 export const REQUEST_PASSWORD_URL = API_URL + "/api/v1/auth/password";
 export const SUBMIT_PASSWORD_URL = API_URL + "/api/v1/auth/password";
@@ -24,7 +24,7 @@ export function register(
 }
 
 export function requestPassword(email: string, redirect_url: string) {
-  redirect_url = ""
+  redirect_url = "";
   return axios.post(REQUEST_PASSWORD_URL, { email, redirect_url });
 }
 

@@ -4,13 +4,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const DEFAULT_PORT = !process.env.PORT ? 8080 : process.env.PORT;
 
 module.exports = {
-  entry: "./src/app/index.tsx",
+  entry: "./src/index.tsx",
   target: "web",
   mode: "development",
   output: {
     path: path.resolve(__dirname, "build"),
     filename: "bundle.js",
-    publicPath: '/',
+    publicPath: "/",
   },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
@@ -28,15 +28,18 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: "css-loader",
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: "css-loader", options: { url: false, sourceMap: true } },
+        ],
       },
       {
         test: /\.(png|jp(e*)g|svg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: 'images/[hash]-[name].[ext]',
+              name: "images/[hash]-[name].[ext]&context=./app/static",
             },
           },
         ],
@@ -48,13 +51,14 @@ module.exports = {
       template: path.resolve(__dirname, "public", "index.html"),
     }),
     new MiniCssExtractPlugin({
-      filename: "./src/yourfile.css",
+      // filename: path.resolve(__dirname, "public", "csc/splash-screen.css"),
+      filename: "index.css",
     }),
   ],
   devServer: {
     historyApiFallback: true,
-    contentBase: path.join(__dirname, 'dist'),
+    contentBase: path.join(__dirname, "dist"),
     compress: true,
-    port: DEFAULT_PORT
-  }
+    port: DEFAULT_PORT,
+  },
 };

@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { LoginForm } from "./pages/LoginForm";
+import LoginForm from "./pages/LoginForm";
 import { SignUpForm } from "./pages/SignUpForm";
 import { iLogin, iLoginProps } from "./types";
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuthBase: React.FC<{}> = () => {
+export const AuthBase: React.FC<{}> = () => {
   const classes = useStyles();
   const pathName:string = window.location.pathname;
   console.log('pathName', pathName)
@@ -54,5 +54,3 @@ const AuthBase: React.FC<{}> = () => {
     </Grid>
   );
 };
-
-export default AuthBase;
