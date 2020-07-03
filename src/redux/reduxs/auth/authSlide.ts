@@ -35,18 +35,14 @@ export const reducer = persistReducer(
   ) => {
     switch (action.type) {
       case actionTypes.Login: {
-        let authToken = action.payload.authToken;
-        let uid = action.payload.uid;
-        let client = action.payload.client;
-        let expiry = action.payload.expiry;
-        let token = action.payload.token;
+        let id = action.payload.id;
+        let email = action.payload.email;
+        let created_at = action.payload.created_at;
+        let updated_at = action.payload.updated_at;
+        let jti = action.payload.jti;
 
         return {
-          authToken,
-          user: { email: uid, fullname: uid },
-          client,
-          expiry,
-          token,
+          user: { id, email, created_at, updated_at, jti },
         };
       }
 
@@ -72,9 +68,7 @@ export const reducer = persistReducer(
   }
 );
 
-export const actions
-: iActions
-= {
+export const actions: iActions = {
   login: (
     id: string,
     email: string,

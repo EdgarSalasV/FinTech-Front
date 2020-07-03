@@ -138,10 +138,9 @@ function LoginForm(props: iActions) {
       enableLoading();
       login(email, password)
       .then((resp: {data: iAuth}) => {
-        disableLoading();
         const { id, email, created_at, updated_at, jti } = resp.data;
-        console.log('resp.data', resp.data)
         props.login(id, email, created_at, updated_at, jti);
+        disableLoading();
       });
     } catch (error) {
       console.log("error LOGIN", error);

@@ -9,7 +9,7 @@ export const SUBMIT_PASSWORD_URL = API_URL + "/api/v1/auth/password";
 export const ME_URL = "api/me";
 
 export function login(email: string, password: string) {
-  return axios.post(LOGIN_URL, { email: email, password: password });
+  return axios.post(LOGIN_URL, { user: { email: email, password: password } });
 }
 
 export function register(
@@ -24,7 +24,7 @@ export function register(
 }
 
 export function requestPassword(email: string, redirect_url: string) {
-  redirect_url = ""
+  redirect_url = "";
   return axios.post(REQUEST_PASSWORD_URL, { email, redirect_url });
 }
 

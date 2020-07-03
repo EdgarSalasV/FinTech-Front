@@ -6,7 +6,7 @@ import { App } from "./app/App";
 const mainDiv = document.getElementById("root");
 ReactDOM.render(
   <SplashScreenProvider>
-    <App />,
+    <App />
   </SplashScreenProvider>,
   mainDiv
 );

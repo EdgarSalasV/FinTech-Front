@@ -6,11 +6,11 @@ import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
-import { mainListItems, secondaryListItems } from "./listItems";
+import { mainListItems, secondaryListItems, loginListItems } from "./listItems";
 
 interface iDrawerSide {
   open: boolean;
-  setOpen: (open:boolean) => void;
+  setOpen: (open: boolean) => void;
 }
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -68,6 +68,8 @@ export const DrawerSide = (props: iDrawerSide) => {
       <List>{mainListItems}</List>
       <Divider />
       <List>{secondaryListItems}</List>
+      <Divider />
+      <List>{loginListItems}</List>
     </Drawer>
   );
 };

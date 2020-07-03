@@ -4,10 +4,10 @@ export interface iAuth {
   created_at: string;
   updated_at: string;
   jti: string;
-  isAuthorized: boolean;
+  isAuthorized?: boolean;
 }
 
-type iActionLogin = (
+export type iActionLogin = (
   id: string,
   email: string,
   created_at: string,
@@ -24,13 +24,11 @@ type iActionLogin = (
   };
 };
 
-type iActionRegisterLogin = (
+type iActionRegister = (
   jti: string
 ) => {
   type: string;
-  payload: {
-    jti: string;
-  };
+  payload: any
 };
 
 type iActionLogout = () => {
@@ -45,13 +43,7 @@ type iActionRequestUser = (
   jti?: string
 ) => {
   type: string;
-  payload: {
-    id: string;
-    email: string;
-    created_at: string;
-    updated_at: string;
-    jti: string;
-  };
+  payload: any
 };
 
 type iActionFulFillUser = (
@@ -62,21 +54,15 @@ type iActionFulFillUser = (
   jti: string
 ) => {
   type: string;
-  payload: {
-    id: string;
-    email: string;
-    created_at: string;
-    updated_at: string;
-    jti: string;
-  };
+  payload: any;
 };
 
 export type iActions = {
-  login?: iActionLogin;
-  register?: iActionRegisterLogin;
-  logout?: iActionLogout;
-  requestUser?: iActionRequestUser;
-  fulfillUser?: iActionFulFillUser;
+  login: iActionLogin;
+  register: iActionRegister;
+  logout: iActionLogout;
+  requestUser: iActionRequestUser;
+  fulfillUser: iActionFulFillUser;
 };
 
 export type SliceState = {

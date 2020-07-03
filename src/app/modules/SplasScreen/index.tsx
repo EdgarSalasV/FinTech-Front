@@ -1,4 +1,7 @@
 import * as React from "react";
+// import 'public/css/splash-screen.css'
+import '../../../../public/css/splash-screen.css'
+// import "../../../../public/css/splash-screen.css";
 // type ContextProps = React.Dispatch<React.SetStateAction<number>>;
 type ContextProps = React.Dispatch<React.SetStateAction<number>>;
 
@@ -14,9 +17,10 @@ export function SplashScreenProvider({ children }: { children: any }) {
     // Show SplashScreen
     if (splashScreen && visible) {
       splashScreen.classList.remove("hidden");
-
+      // splashScreen.setAttribute("display", "block");
       return () => {
         splashScreen.classList.add("hidden");
+        // splashScreen.setAttribute("display", "none");
       };
     }
 
